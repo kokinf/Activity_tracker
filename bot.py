@@ -85,9 +85,9 @@ class TrainingBot:
             inline_keyboard=[
                 [InlineKeyboardButton(text="Создать тренировку", callback_data="custom_training")],
                 [InlineKeyboardButton(text="Мои тренировки", callback_data="my_trainings")],
-                [InlineKeyboardButton(text="Силовая", callback_data="strength_training")],
+                [InlineKeyboardButton(text="Сплит", callback_data="split_training")],
+                [InlineKeyboardButton(text="Фулбади", callback_data="fullbody_training")],
                 [InlineKeyboardButton(text="Кардио", callback_data="cardio_training")],
-                [InlineKeyboardButton(text="Рельеф", callback_data="relief_training")],
                 [InlineKeyboardButton(text="Назад", callback_data="back_to_main")],
             ]
         )
@@ -182,20 +182,20 @@ class TrainingBot:
         training_type = data.get('training_type')
 
         file_paths = {
-            "strength_training": {
-                "beginner": r'C:\Users\nikit\Desktop\Курсач\Силовая\Начальный_силовая.xlsx',
-                "intermediate": r'C:\Users\nikit\Desktop\Курсач\Силовая\Средний_силовая.xlsx',
-                "advanced": r'C:\Users\nikit\Desktop\Курсач\Силовая\Продвинутый_силовая.xlsx'
+            "split_training": {
+                "beginner": r'C:\Users\nikit\Desktop\Курсач\Сплит\Начальный_сплит.xlsx',
+                "intermediate": r'C:\Users\nikit\Desktop\Курсач\Сплит\Средний_сплит.xlsx',
+                "advanced": r'C:\Users\nikit\Desktop\Курсач\Сплит\Продвинутый_сплит.xlsx'
+            },
+            "fullbody_training": {
+                "beginner": r'C:\Users\nikit\Desktop\Курсач\Фулбади\Начальный_фулбади.xlsx',
+                "intermediate": r'C:\Users\nikit\Desktop\Курсач\Фулбади\Средний_фулбади.xlsx',
+                "advanced": r'C:\Users\nikit\Desktop\Курсач\Фулбади\Продвинутый_фулбади.xlsx'
             },
             "cardio_training": {
                 "beginner": r'C:\Users\nikit\Desktop\Курсач\Кардио\Начальный_кардио.xlsx',
                 "intermediate": r'C:\Users\nikit\Desktop\Курсач\Кардио\Средний_кардио.xlsx',
                 "advanced": r'C:\Users\nikit\Desktop\Курсач\Кардио\Продвинутый_кардио.xlsx'
-            },
-            "relief_training": {
-                "beginner": r'C:\Users\nikit\Desktop\Курсач\Рельеф\Начальный_рельеф.xlsx',
-                "intermediate": r'C:\Users\nikit\Desktop\Курсач\Рельеф\Средний_рельеф.xlsx',
-                "advanced": r'C:\Users\nikit\Desktop\Курсач\Рельеф\Продвинутый_рельеф.xlsx'
             }
         }
 
@@ -351,7 +351,7 @@ class TrainingBot:
 
     # Регистрация обработчиков
     def register_handlers(self):
-        self.dp.callback_query.register(self.process_training_selection, lambda c: c.data in ["custom_training", "my_trainings", "strength_training", "cardio_training", "relief_training"])
+        self.dp.callback_query.register(self.process_training_selection, lambda c: c.data in ["custom_training", "my_trainings", "split_training", "fullbody_training", "cardio_training"])
         self.dp.callback_query.register(self.process_level_selection, lambda c: c.data in ["beginner", "intermediate", "advanced"])
         self.dp.callback_query.register(self.process_custom_training_date, DialogCalendarCallback.filter())
         self.dp.message.register(self.save_custom_training_name, Form.custom_training_name)
