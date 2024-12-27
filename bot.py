@@ -299,7 +299,7 @@ class TrainingBot:
             exercises = session.query(Exercise).filter_by(training_id=training_id).all()
             exercises_text = "\n".join([f"{exercise.name}: {exercise.sets} x {exercise.weight}" for exercise in exercises])
             await state.set_state(Form.main)
-            await callback_query.message.edit_text(f"Тренировка завершена. Вот всё, что вы сделали:\n{exercises_text}", reply_markup=self.get_back_keyboard())
+            await callback_query.message.edit_text(f"Тренировка завершена. Вот всё, что вы сделали:\n{exercises_text}\n\nСейчас вы перенаправитесь в главное меню")
             await asyncio.sleep(5)
             await callback_query.message.edit_text("Привет, выберите то, что вас интересует:", reply_markup=self.get_training_types_keyboard())
         await callback_query.answer()
@@ -380,7 +380,7 @@ class NutritionBot:
         )
         return keyboard
 
-    # Обработка выбора питания
+    # Обработка
     async def process_nutrition_selection(self, callback_query: CallbackQuery):
         await callback_query.message.edit_text("Выберите опцию:", reply_markup=self.get_nutrition_keyboard())
         await callback_query.answer()
